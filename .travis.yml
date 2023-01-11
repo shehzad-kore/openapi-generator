@@ -47,14 +47,14 @@ addons:
 
 before_install:
   #- sudo rm -rf /var/lib/apt/lists/*
-  #- curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-  #- sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) edge"
-  #- sudo apt-get update
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) edge"
+  - sudo apt-get update
   ##- sudo apt-get install -qqy --no-install-recommends google-chrome-stable
   ##- sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
-  #- mkdir -vp ~/.docker/cli-plugins/
-  #- curl --silent -L "https://github.com/docker/buildx/releases/download/v0.3.0/buildx-v0.3.0.linux-amd64" > ~/.docker/cli-plugins/docker-buildx
-  #- chmod a+x ~/.docker/cli-plugins/docker-buildx
+  - mkdir -vp ~/.docker/cli-plugins/
+  - curl --silent -L "https://github.com/docker/buildx/releases/download/v0.3.0/buildx-v0.3.0.linux-amd64" > ~/.docker/cli-plugins/docker-buildx
+  - chmod a+x ~/.docker/cli-plugins/docker-buildx
   ## to run petstore server locally via docker
   #- echo "$DOCKER_HUB_PASSWORD" | docker login --username=$DOCKER_HUB_USERNAME --password-stdin || true
   #- docker pull swaggerapi/petstore
@@ -193,7 +193,7 @@ after_success:
           docker buildx build --push --platform linux/amd64,linux/arm64 --label=org.opencontainers.image.created=$build_date --label=org.opencontainers.image.title=openapi-generator-online --label=org.opencontainers.image.revision=$TRAVIS_COMMIT --label=org.opencontainers.image.version=$cli_version -t $DOCKER_GENERATOR_IMAGE_NAME:latest -t $DOCKER_GENERATOR_IMAGE_NAME:$TRAVIS_TAG -t $DOCKER_GENERATOR_IMAGE_NAME -t $DOCKER_GENERATOR_IMAGE_NAME:latest-release ./modules/openapi-generator-online;
           echo "Built and tagged $DOCKER_GENERATOR_IMAGE_NAME";
       fi;
-      if [ -z "$TRAVIS_TAG" ] && [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]; then
+      if [ -z "$TRAVIS_TAG" ] && [ "master" = "master" ] && [ "false" = "false" ]; then
           docker buildx build --push --platform linux/amd64,linux/arm64 --label=org.opencontainers.image.created=$build_date --label=org.opencontainers.image.title=openapi-generator-online --label=org.opencontainers.image.revision=$TRAVIS_COMMIT --label=org.opencontainers.image.version=$cli_version -t $DOCKER_GENERATOR_IMAGE_NAME ./modules/openapi-generator-online;
           echo "Pushed to $DOCKER_GENERATOR_IMAGE_NAME for master";
       fi;
@@ -210,7 +210,7 @@ after_success:
           docker buildx build --push --platform linux/amd64,linux/arm64 --label=org.opencontainers.image.created=$build_date --label=org.opencontainers.image.title=openapi-generator-cli --label=org.opencontainers.image.revision=$TRAVIS_COMMIT --label=org.opencontainers.image.version=$cli_version -t $DOCKER_CODEGEN_CLI_IMAGE_NAME:latest -t $DOCKER_CODEGEN_CLI_IMAGE_NAME:$TRAVIS_TAG -t $DOCKER_CODEGEN_CLI_IMAGE_NAME -t $DOCKER_CODEGEN_CLI_IMAGE_NAME:latest-release ./modules/openapi-generator-cli;
           echo "Built and tagged $DOCKER_GENERATOR_IMAGE_NAME";
       fi;
-      if [ -z "$TRAVIS_TAG" ] && [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]; then
+      if [ -z "$TRAVIS_TAG" ] && [ "master" = "master" ] && [ "false" = "false" ]; then
           docker buildx build --push --platform linux/amd64,linux/arm64 --label=org.opencontainers.image.created=$build_date --label=org.opencontainers.image.title=openapi-generator-cli --label=org.opencontainers.image.revision=$TRAVIS_COMMIT --label=org.opencontainers.image.version=$cli_version -t $DOCKER_CODEGEN_CLI_IMAGE_NAME ./modules/openapi-generator-cli;
           echo "Pushed to $DOCKER_CODEGEN_CLI_IMAGE_NAME";
       fi;
