@@ -155,7 +155,7 @@ script:
 after_success:
   # push to maven repo
   - if [ $SONATYPE_USERNAME ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
-      if [ "$TRAVIS_BRANCH" = "master" ] && [ -z $TRAVIS_TAG ]; then
+      if [ "master" = "master" ] && [ -z $TRAVIS_TAG ]; then
         echo "Publishing from branch $TRAVIS_BRANCH";
         mvn clean deploy -DskipTests=true -B -U -P release --settings CI/settings.xml;
         echo "Finished mvn clean deploy for $TRAVIS_BRANCH";
