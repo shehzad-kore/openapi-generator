@@ -113,7 +113,7 @@ nexusPublishing {
 // or stored as key=value pairs in ~/.gradle/gradle.properties
 // You can also apply them in CI via environment variables. See Gradle's docs for details.
 signing {
-    required { isReleaseVersion && gradle.taskGraph.hasTask("publishPluginMavenPublicationToSonatypeRepository") }
+    required { isReleaseVersion && gradle.taskGraph.hasTask(":publishPluginMavenPublicationToSonatypeRepository") }
     sign(publishing.publications)
 }
 
